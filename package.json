@@ -5,11 +5,11 @@
   "main": "electron-start.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-dev": "./node_modules/.bin/webpack --progress --config webpack.config.js",
-    "build-prod": "./node_modules/.bin/webpack --progress --config webpack.config.prod.js",
-    "start": "./node_modules/.bin/webpack-dev-server --open",
-    "desktop-dev": "npm run build-dev && ./node_modules/.bin/electron .",
-    "package": "rm -rf out/* && npm install && npm run build-prod && ./node_modules/.bin/electron-packager ./ threejsDemo --all --tmpdir=false --ignore='\\.git(ignore|modules)' --ignore='source.map' --out='./out/' --asar"
+    "build-dev": "webpack --progress --config webpack.config.js",
+    "build-prod": "webpack --progress --config webpack.config.prod.js",
+    "start": "webpack-dev-server --open",
+    "desktop-dev": "npm run build-dev && electron .",
+    "package": "rm -rf out/* && npm install && npm run build-prod && electron-packager ./ threejsDemo --all --tmpdir=false --ignore='\\.git(ignore|modules)' --ignore='source.map' --out='./out/' --asar"
   },
   "author": "Vinay S Shenoy",
   "license": "MIT",

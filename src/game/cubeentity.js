@@ -20,7 +20,6 @@ export default class CubeEntity extends Entity {
     this.object3D.rotateY(deltaRotation);
     this.object3D.rotateZ(deltaRotation);
     this.game.dispatchEvent('on-cube-rotated', this.object3D.rotation);
-    this.totalDeltaDegrees += radToDeg(deltaRotation);
   }
 
 }
