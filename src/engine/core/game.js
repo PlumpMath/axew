@@ -1,6 +1,7 @@
 "use strict";
 const THREE = require('three');
 import Entity from './Entity';
+import KeyboardInputTracker from '../input/KeyboardInputTracker'
 
 const defaultOptions = {
   antialias: true,
@@ -42,6 +43,26 @@ export default class Game {
     this.clock = new THREE.Clock();
     this.listeners = {};
     this.deadEntities = [];
+    this.keyboardInputTracker = new KeyboardInputTracker();
+    this.keyboardInputTracker.listenForEvents(this);
+    this.registerEventListener('kbinput-action', actionKeyEvent => {
+      console.log(`Action: ${actionKeyEvent.key}`);
+    }, this);
+    this.registerEventListener('kbinput-mod-down', actionKeyEvent => {
+      console.log(`Modifier Down: ${actionKeyEvent.key}`);
+    });
+    this.registerEventListener('kbinput-mod-up', actionKeyEvent => {
+      console.log(`Modifier Up: ${actionKeyEvent.key}`);
+    });
+    this.registerEventListener('kbinput-keypress', actionKeyEvent => {
+      console.log(`Key Press: ${actionKeyEvent.key}`);
+    });
+    this.registerEventListener('kbinput-arrow-up', actionKeyEvent => {
+      console.log(`Arrow Key Up: ${actionKeyEvent.key}`);
+    });
+    this.registerEventListener('kbinput-arrow-down', actionKeyEvent => {
+      console.log(`Arrow Key Down: ${actionKeyEvent.key}`);
+    });
   }
 
   render() {
