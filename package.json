@@ -1,0 +1,24 @@
+{
+  "name": "learning",
+  "version": "1.0.0",
+  "description": "Test application for Electron and Three.js",
+  "main": "electron-start.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-dev": "./node_modules/.bin/webpack --progress --config webpack.config.js",
+    "build-prod": "./node_modules/.bin/webpack --progress --config webpack.config.prod.js",
+    "start": "./node_modules/.bin/webpack-dev-server --open",
+    "desktop-dev": "npm run build-dev && ./node_modules/.bin/electron .",
+    "package": "rm -rf out/* && npm install && npm run build-prod && ./node_modules/.bin/electron-packager ./ threejsDemo --all --tmpdir=false --ignore='\\.git(ignore|modules)' --ignore='source.map' --out='./out/' --asar"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "1.6.11",
+    "electron-packager": "8.7.1",
+    "webpack": "2.6.1"
+  },
+  "dependencies": {
+    "three": "0.85.2"
+  }
+}
