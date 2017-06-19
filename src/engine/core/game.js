@@ -50,7 +50,7 @@ export default class Game {
     to prevent self being assigned to window instead of the game because of how
     requestanimationframe is scoped
     */
-    self = (self == null) ? this : self;
+    self = (self === null) ? this : self;
     requestAnimationFrame(self.render);
     const deltaTime = self.clock.getDelta();
 
@@ -61,7 +61,7 @@ export default class Game {
 
       if(!entity.isAlive) {
         //This entity was killed in the last frame, mark it for removal
-        self.deadEntities.push(entity);
+        self.deadEntities.push(entity.name);
         continue;
       }
 
@@ -70,7 +70,7 @@ export default class Game {
       }
     }
     if(self.deadEntities.length > 0) {
-      self.removeEntities(deadEntities);
+      self.removeEntitiesByName(self.deadEntities);
       self.deadEntities.length = 0;
     }
     self.renderer.render(self.scene, self.camera);
@@ -96,7 +96,11 @@ export default class Game {
   addEntities(entities) {
     entities.forEach(entity => {
       if (!(entity instanceof Entity)) {
-        throw `Entity(${entity.name} should be or extend Entity class)`;
+        throw `Entity(${entity.name}) should be or extend Entity class!`;
+      }
+
+      if(!entity.isAlive) {
+        throw `Entity ${entity.name} is dead!`
       }
 
       if (this.entityMap.hasOwnProperty(entity.name)) {

@@ -15,15 +15,8 @@ game.addEntities([cubeEntity, sphereEntity]);
 
 game.camera.position.z = 5;
 
-game.render();
-
 window.addEventListener('resize', () => {
 	game.resize(window.innerWidth, window.innerHeight);
 });
 
-setTimeout(() => {
-	game.removeEntity(sphereEntity);
-	setTimeout(() => {
-		game.addEntity(sphereEntity);
-	}, 5000);
-}, 5000);
+game.render();
