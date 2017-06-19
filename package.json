@@ -1,7 +1,7 @@
 {
-  "name": "learning",
-  "version": "1.0.0",
-  "description": "Test application for Electron and Three.js",
+  "name": "axew",
+  "version": "0.0.1",
+  "description": "Desktop game engine built on three.js and Electron",
   "main": "electron-start.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,8 +11,8 @@
     "desktop-dev": "npm run build-dev && ./node_modules/.bin/electron .",
     "package": "rm -rf out/* && npm install && npm run build-prod && ./node_modules/.bin/electron-packager ./ threejsDemo --all --tmpdir=false --ignore='\\.git(ignore|modules)' --ignore='source.map' --out='./out/' --asar"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Vinay S Shenoy",
+  "license": "MIT",
   "devDependencies": {
     "electron": "1.6.11",
     "electron-packager": "8.7.1",
