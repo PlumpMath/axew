@@ -1,6 +1,6 @@
 "use strict";
 const THREE = require('three');
-import Entity from '../engine/core/entity';
+import Entity from '../engine/core/Entity';
 
 export default class SphereEntity extends Entity {
 

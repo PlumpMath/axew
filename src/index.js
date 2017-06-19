@@ -1,7 +1,7 @@
 "use strict";
-import Game from './engine/core/game';
-import CubeEntity from './game/cubeentity';
-import SphereEntity from './game/sphereentity';
+import Game from './engine/core/Game';
+import CubeEntity from './game/CubeEntity';
+import SphereEntity from './game/SphereEntity';
 const THREE = require('three');
 
 const game = new Game(window.innerWidth, window.innerHeight);

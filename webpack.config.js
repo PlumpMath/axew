@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   devtool: 'cheap-source-map',
-  entry: './src/index.js',
+  entry: './src/Index.js',
   devServer: {
     publicPath: '/dist/'
   },

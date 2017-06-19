@@ -1,6 +1,6 @@
 "use strict";
 const THREE = require('three');
-import Entity from './entity';
+import Entity from './Entity';
 
 const defaultOptions = {
   antialias: true,

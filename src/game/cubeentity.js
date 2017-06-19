@@ -1,5 +1,5 @@
 "use strict";
-import Entity from '../engine/core/entity';
+import Entity from '../engine/core/Entity';
 const THREE = require('three');
 const degToRad = THREE.Math.degToRad;
 const radToDeg = THREE.Math.radToDeg;
