@@ -13,6 +13,7 @@ module.exports = {
   devtool: 'source-map',
   entry: './src/Index.js',
   plugins:[
+    new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.LoaderOptionsPlugin({
       minimize: true,
       debug: false

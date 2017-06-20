@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   devtool: 'cheap-source-map',
@@ -6,6 +7,9 @@ module.exports = {
   devServer: {
     publicPath: '/dist/'
   },
+  plugins:[
+    new webpack.optimize.ModuleConcatenationPlugin()
+  ],
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
