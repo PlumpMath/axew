@@ -10,7 +10,7 @@ function clean() {
 clean();
 
 module.exports = {
-  devtool: 'source-map',
+  devtool: 'cheap-eval-source-map',
   entry: './src/Index.js',
   plugins:[
     new webpack.optimize.ModuleConcatenationPlugin(),
