@@ -1,15 +1,14 @@
 const path = require('path');
-const webpack = require('webpack');
 
 module.exports = {
-  devtool: 'cheap-source-map',
+  devtool: 'cheap-eval-source-map',
   entry: './src/Index.js',
   devServer: {
-    publicPath: '/dist/'
+    publicPath: '/dist/',
+    watchOptions: {
+      ignored: /node_modules/
+    }
   },
-  plugins:[
-    new webpack.optimize.ModuleConcatenationPlugin()
-  ],
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
