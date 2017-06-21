@@ -23,4 +23,4 @@ window.addEventListener('resize', () => {
 	game.resize(window.innerWidth, window.innerHeight);
 });
 
-game.render();
+game.mainLoop();

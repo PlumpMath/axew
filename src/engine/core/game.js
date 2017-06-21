@@ -77,14 +77,14 @@ export default class Game {
     });*/
   }
 
-  render() {
+  mainLoop() {
     /*
     This has to be called here before the first call to requestanimationframe
     to prevent self being assigned to window instead of the game because of how
     requestanimationframe is scoped
     */
     self = (self === null) ? this : self;
-    requestAnimationFrame(self.render);
+    requestAnimationFrame(self.mainLoop);
     const deltaTime = self.clock.getDelta();
 
     let entity;
