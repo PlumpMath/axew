@@ -1,8 +1,8 @@
 "use strict";
 const THREE = require('three');
 import Entity from './Entity';
-import KeyboardInputTracker from '../input/KeyboardInputTracker';
-import MouseInputTracker from '../input/MouseInputTracker';
+// import KeyboardInputTracker from '../input/KeyboardInputTracker';
+// import MouseInputTracker from '../input/MouseInputTracker';
 
 const defaultOptions = {
   antialias: true,
@@ -45,11 +45,12 @@ export default class Game {
     this.listeners = {};
     this.deadEntities = [];
 
-    this.keyboardInputTracker = new KeyboardInputTracker();
+    /*this.keyboardInputTracker = new KeyboardInputTracker();
     this.keyboardInputTracker.listenForEvents(this);
 
     this.mouseInputTracker = new MouseInputTracker();
-    this.mouseInputTracker.listenForEvents(this);
+    this.mouseInputTracker.listenForEvents(this); */
+
     /*this.registerEventListener('kbinput-action', actionKeyEvent => {
       console.log(`Action: ${actionKeyEvent.key}`);
     }, this);
