@@ -14,21 +14,6 @@ export default class Controller extends Entity {
   }
 
   onUpdate() {
-    if(Input.modifier(Modifiers.LSHIFT) || Input.modifier(Modifiers.RSHIFT)) {
-      console.log('SHIFT');
-    }
-
-    if(Input.modifier(Modifiers.LALT) || Input.modifier(Modifiers.RALT)) {
-      console.log('ALT');
-    }
-
-    if(Input.modifier(Modifiers.LCONTROL) || Input.modifier(Modifiers.RCONTROL)) {
-      console.log('CONTROL');
-    }
-
-    if(Input.modifier(Modifiers.LMETA) || Input.modifier(Modifiers.RMETA)) {
-      console.log('META');
-    }
 
     if(Input.keyDown('F1')) {
       console.log('Down F1');
@@ -40,6 +25,14 @@ export default class Controller extends Entity {
 
     if(Input.keyUp('F1')) {
       console.log('Up F1');
+    }
+
+    if(Input.key('Enter')) {
+      console.log('Enter');
+    }
+
+    if(Input.key('Shift')) {
+      console.log('Shift');
     }
   }
 }

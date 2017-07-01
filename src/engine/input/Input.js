@@ -94,9 +94,7 @@ function setup() {
     const key = event.key;
     if(hasProperty(Input.keys, key)) {
       const actionState = Input.keys[key];
-      if(actionState === ActionStates.UP) {
-        delete Input.keys[key];
-      } else if(actionState === ActionStates.DOWN || actionState === ActionStates.PRESSED) {
+      if(actionState === ActionStates.DOWN || actionState === ActionStates.PRESSED) {
         Input.keys[key] = ActionStates.UP;
       }
     }
@@ -133,6 +131,18 @@ const api = Object.freeze({
     }
 
     return false;
+  },
+  //For internal use only
+  onFrameEnd: function() {
+    let actionState;
+    for(let key in Input.keys) {
+      if(hasProperty(Input.keys, key)) {
+        actionState = Input.keys[key];
+        if(ActionStates.UP === actionState) {
+          delete Input.keys[key];
+        }
+      }
+    }
   }
 });
 

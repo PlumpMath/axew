@@ -2,6 +2,8 @@
 const THREE = require('three');
 import Entity from './Entity';
 import { hasProperty } from '../util/Utility'
+import { Input } from '../input/Input';
+
 // import KeyboardInputTracker from '../input/KeyboardInputTracker';
 // import MouseInputTracker from '../input/MouseInputTracker';
 
@@ -108,6 +110,7 @@ export default class Game {
       self.deadEntities.length = 0;
     }
     self.renderer.render(self.scene, self.camera);
+    Input.onFrameEnd();
   }
 
   resize(newWidth, newHeight) {
