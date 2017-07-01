@@ -1,8 +1,9 @@
 "use strict";
-import { hasProperty } from '../util/Utility';
+import {
+  hasProperty
+} from '../util/Utility';
 
 const ActionStates = Object.freeze({
-  NONE: 'none',
   DOWN: 'down',
   UP: 'up',
   PRESSED: 'pressed'
@@ -32,9 +33,7 @@ const Input = {
     r_meta: false
   },
   //Maintains a map of keys to action states
-  keys: {
-
-  }
+  keys: {}
 };
 
 function findModifierForEvent(event) {
@@ -73,15 +72,33 @@ function findModifierForEvent(event) {
 
 function setup() {
   document.addEventListener('keydown', event => {
+    //Update modifier state
     const modifier = findModifierForEvent(event);
     if (modifier !== null) {
       Input.modifiers[modifier] = true;
     }
+
+    const key = event.key;
+    if(hasProperty(Input.keys, key)) {
+      Input.keys[key] = ActionStates.PRESSED;
+    } else {
+      Input.keys[key] = ActionStates.DOWN;
+    }
   });
   document.addEventListener('keyup', event => {
+    //Update modifier state
     const modifier = findModifierForEvent(event);
     if (modifier !== null) {
       Input.modifiers[modifier] = false;
+    }
+    const key = event.key;
+    if(hasProperty(Input.keys, key)) {
+      const actionState = Input.keys[key];
+      if(actionState === ActionStates.UP) {
+        delete Input.keys[key];
+      } else if(actionState === ActionStates.DOWN || actionState === ActionStates.PRESSED) {
+        Input.keys[key] = ActionStates.UP;
+      }
     }
   });
 }
@@ -92,6 +109,27 @@ const api = Object.freeze({
   modifier: function (code) {
     if (hasProperty(Input.modifiers, code)) {
       return Input.modifiers[code];
+    }
+
+    return false;
+  },
+  keyDown: function (key) {
+    if(hasProperty(Input.keys, key)) {
+      return Input.keys[key] === ActionStates.DOWN;
+    }
+
+    return false;
+  },
+  keyUp: function (key) {
+    if(hasProperty(Input.keys, key)) {
+      return Input.keys[key] === ActionStates.UP;
+    }
+
+    return false;
+  },
+  key: function (key) {
+    if(hasProperty(Input.keys, key)) {
+      return Input.keys[key] === ActionStates.DOWN || Input.keys[key] === ActionStates.PRESSED;
     }
 
     return false;

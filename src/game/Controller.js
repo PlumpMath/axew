@@ -10,7 +10,7 @@ export default class Controller extends Entity {
   }
 
   bindToGame(game) {
-    this.keyboardInputTracker.listenForEvents(game);
+    // this.keyboardInputTracker.listenForEvents(game);
   }
 
   onUpdate() {
@@ -28,6 +28,18 @@ export default class Controller extends Entity {
 
     if(Input.modifier(Modifiers.LMETA) || Input.modifier(Modifiers.RMETA)) {
       console.log('META');
+    }
+
+    if(Input.keyDown('F1')) {
+      console.log('Down F1');
+    }
+
+    if(Input.key(' ')) {
+      console.log('Space');
+    }
+
+    if(Input.keyUp('F1')) {
+      console.log('Up F1');
     }
   }
 }
