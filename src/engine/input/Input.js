@@ -1,4 +1,5 @@
 "use strict";
+import { hasProperty } from '../util/Utility';
 
 const ActionStates = Object.freeze({
   NONE: 'none',
@@ -29,6 +30,10 @@ const Input = {
     r_ctrl: false,
     l_meta: false,
     r_meta: false
+  },
+  //Maintains a map of keys to action states
+  keys: {
+
   }
 };
 
@@ -85,7 +90,7 @@ setup();
 
 const api = Object.freeze({
   modifier: function (code) {
-    if (Input.modifiers.hasOwnProperty(code)) {
+    if (hasProperty(Input.modifiers, code)) {
       return Input.modifiers[code];
     }
 

@@ -1,6 +1,7 @@
 "use strict";
 const THREE = require('three');
 import Entity from './Entity';
+import { hasProperty } from '../util/Utility'
 // import KeyboardInputTracker from '../input/KeyboardInputTracker';
 // import MouseInputTracker from '../input/MouseInputTracker';
 
@@ -15,11 +16,11 @@ const defaultOptions = {
 }
 
 function initCamera(width, height, options) {
-  const perspectiveCamera = options.hasOwnProperty('perspective') ? options.perspective : defaultOptions.camera.perspective;
-  const near = options.hasOwnProperty('near') ? options.near : defaultOptions.camera.near;
-  const far = options.hasOwnProperty('far') ? options.far : defaultOptions.camera.far;
+  const perspectiveCamera = hasProperty(options, 'perspective') ? options.perspective : defaultOptions.camera.perspective;
+  const near = hasProperty(options, 'near') ? options.near : defaultOptions.camera.near;
+  const far = hasProperty(options, 'far') ? options.far : defaultOptions.camera.far;
   if (perspectiveCamera) {
-    const fov = options.hasOwnProperty('fov') ? options.fov : defaultOptions.camera.fov;
+    const fov = hasProperty(options, 'fov') ? options.fov : defaultOptions.camera.fov;
     return new THREE.PerspectiveCamera(fov, width / height, near, far);
   } else {
     return new THREE.OrthographicCamera(width / -2, width / 2, height / 2, height / -2, near, far);
@@ -35,10 +36,10 @@ export default class Game {
     options = (options === null || options === undefined) ? defaultOptions : options;
     this.scene = new THREE.Scene();
     this.renderer = new THREE.WebGLRenderer({
-      antialias: options.hasOwnProperty('antialias') ? options.antialias : defaultOptions.antialias
+      antialias: hasProperty(options, 'antialias') ? options.antialias : defaultOptions.antialias
     });
     this.renderer.setSize(width, height);
-    this.camera = initCamera(width, height, options.hasOwnProperty('camera') ? options.camera : defaultOptions.camera);
+    this.camera = initCamera(width, height, hasProperty(options, 'camera') ? options.camera : defaultOptions.camera);
     this.entities = [];
     this.entityMap = {};
     this.clock = new THREE.Clock();
@@ -136,7 +137,7 @@ export default class Game {
         throw `Entity ${entity.name} is dead!`
       }
 
-      if (this.entityMap.hasOwnProperty(entity.name)) {
+      if (hasProperty(this.entityMap, entity.name)) {
         throw `Entity(${entity.name}) already exists! Remove it first or replace it instead!`;
       }
 
@@ -191,7 +192,7 @@ export default class Game {
   }
 
   registerEventListener(type, listener, scope) {
-    if (!this.listeners.hasOwnProperty(type)) {
+    if (!hasProperty(this.listeners, type)) {
       this.listeners[type] = [];
     }
 
@@ -202,7 +203,7 @@ export default class Game {
   }
 
   unregisterEventListener(type, listener) {
-    if (this.listeners.hasOwnProperty(type)) {
+    if (hasProperty(this.listeners, type)) {
       const stack = this.listeners[type];
       for (let stackIndex = 0; stackIndex < stack.length; stackIndex++) {
         if (listener === stack[stackIndex].listener) {
@@ -214,7 +215,7 @@ export default class Game {
   }
 
   dispatchEvent(type, payload) {
-    if (this.listeners.hasOwnProperty(type)) {
+    if (hasProperty(this.listeners, type)) {
       this.listeners[type].forEach(listener => {
         listener.listener.call(listener.scope, payload);
       });

@@ -1,10 +1,16 @@
 "use strict";
 import { Modifiers, Input } from '../engine/input/Input';
 import Entity from '../engine/core/Entity';
+import KeyboardInputTracker from '../engine/input/KeyboardInputTracker';
 
 export default class Controller extends Entity {
   constructor() {
     super('_controller');
+    this.keyboardInputTracker = new KeyboardInputTracker();
+  }
+
+  bindToGame(game) {
+    this.keyboardInputTracker.listenForEvents(game);
   }
 
   onUpdate() {

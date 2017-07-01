@@ -44,6 +44,7 @@ export default class KeyboardInputTracker {
     this.eventTarget = eventTarget;
     document.addEventListener('keydown', event => {
       const key = event.key;
+      console.log(`Down: ${key}`);
       if (modifierKeys.includes(key)) {
         this.eventTarget.dispatchEvent('kbinput-mod-down', createKeyEvent(event));
       } else if(arrowKeys.includes(key)) {
@@ -52,6 +53,7 @@ export default class KeyboardInputTracker {
     });
     document.addEventListener('keyup', event => {
       const key = event.key;
+      console.log(`Up: ${key}`);
       if (actionKeys.includes(key)) {
         this.eventTarget.dispatchEvent('kbinput-action', createKeyEvent(event));
       }
@@ -63,6 +65,7 @@ export default class KeyboardInputTracker {
     });
     document.addEventListener('keypress', event => {
       const key = event.key;
+      console.log(`Press: ${key}`);
       if (!actionKeys.includes(key) && !modifierKeys.includes(key)) {
         this.eventTarget.dispatchEvent('kbinput-keypress', createKeyEvent(event));
       }
