@@ -10,7 +10,7 @@ const ActionStates = Object.freeze({
   PRESSED: 'pressed'
 });
 
-const Input = {
+const State = {
   //Maintains a flag indicating which modifiers are pressed
   modifiers: {
     l_shift: false,
@@ -63,8 +63,8 @@ function findModifierForEvent(event) {
 }
 
 function dispatchEvent(type, payload) {
-  if (hasProperty(Input.listeners, type)) {
-    Input.listeners[type].forEach(listener => {
+  if (hasProperty(State.listeners, type)) {
+    State.listeners[type].forEach(listener => {
       listener.listener.call(listener.scope, payload);
     });
   }
@@ -72,46 +72,46 @@ function dispatchEvent(type, payload) {
 
 const api = Object.freeze({
   modifier: function (code) {
-    if (hasProperty(Input.modifiers, code)) {
-      return Input.modifiers[code];
+    if (hasProperty(State.modifiers, code)) {
+      return State.modifiers[code];
     }
 
     return false;
   },
   keyDown: function (key) {
-    if (hasProperty(Input.keys, key)) {
-      return Input.keys[key] === ActionStates.DOWN;
+    if (hasProperty(State.keys, key)) {
+      return State.keys[key] === ActionStates.DOWN;
     }
 
     return false;
   },
   keyUp: function (key) {
-    if (hasProperty(Input.keys, key)) {
-      return Input.keys[key] === ActionStates.UP;
+    if (hasProperty(State.keys, key)) {
+      return State.keys[key] === ActionStates.UP;
     }
 
     return false;
   },
   key: function (key) {
-    if (hasProperty(Input.keys, key)) {
-      return Input.keys[key] === ActionStates.DOWN || Input.keys[key] === ActionStates.PRESSED;
+    if (hasProperty(State.keys, key)) {
+      return State.keys[key] === ActionStates.DOWN || State.keys[key] === ActionStates.PRESSED;
     }
 
     return false;
   },
   registerEventListener: function (type, listener, scope) {
-    if (!hasProperty(Input.listeners, type)) {
-      Input.listeners[type] = [];
+    if (!hasProperty(State.listeners, type)) {
+      State.listeners[type] = [];
     }
 
-    Input.listeners[type].push({
+    State.listeners[type].push({
       listener: listener,
       scope: scope
     });
   },
   unregisterEventListener: function (type, listener) {
-    if (hasProperty(Input.listeners, type)) {
-      const stack = Input.listeners[type];
+    if (hasProperty(State.listeners, type)) {
+      const stack = State.listeners[type];
       for (let stackIndex = 0; stackIndex < stack.length; stackIndex++) {
         if (listener === stack[stackIndex].listener) {
           stack.splice(stackIndex, 1);
@@ -123,13 +123,13 @@ const api = Object.freeze({
   //For internal use only
   onFrameEnd: function () {
     let actionState;
-    for (let key in Input.keys) {
-      if (hasProperty(Input.keys, key)) {
-        actionState = Input.keys[key];
+    for (let key in State.keys) {
+      if (hasProperty(State.keys, key)) {
+        actionState = State.keys[key];
         if (ActionStates.UP === actionState) {
-          delete Input.keys[key];
+          delete State.keys[key];
         } else if (ActionStates.DOWN === actionState) {
-          Input.keys[key] = ActionStates.PRESSED;
+          State.keys[key] = ActionStates.PRESSED;
         }
       }
     }
@@ -167,25 +167,25 @@ function setup() {
     //Update modifier state
     const modifier = findModifierForEvent(event);
     if (modifier !== null) {
-      Input.modifiers[modifier] = true;
+      State.modifiers[modifier] = true;
     }
 
     const key = event.key;
-    if (!hasProperty(Input.keys, key)) {
-      Input.keys[key] = ActionStates.DOWN;
+    if (!hasProperty(State.keys, key)) {
+      State.keys[key] = ActionStates.DOWN;
     }
   });
   document.addEventListener('keyup', event => {
     //Update modifier state
     const modifier = findModifierForEvent(event);
     if (modifier !== null) {
-      Input.modifiers[modifier] = false;
+      State.modifiers[modifier] = false;
     }
     const key = event.key;
-    if (hasProperty(Input.keys, key)) {
-      const actionState = Input.keys[key];
+    if (hasProperty(State.keys, key)) {
+      const actionState = State.keys[key];
       if (actionState === ActionStates.DOWN || actionState === ActionStates.PRESSED) {
-        Input.keys[key] = ActionStates.UP;
+        State.keys[key] = ActionStates.UP;
       }
     }
 
