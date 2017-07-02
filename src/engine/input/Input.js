@@ -11,6 +11,7 @@ const ActionStates = Object.freeze({
 });
 
 const State = {
+
   //Maintains a flag indicating which modifiers are pressed
   modifiers: {
     l_shift: false,
@@ -22,8 +23,13 @@ const State = {
     l_meta: false,
     r_meta: false
   },
+
   //Maintains a map of keys to action states
   keys: {},
+
+  //Used for tracking whether the mouse is in the view or not(useful for windowed games)
+  mouseInWindow: false,
+
   //Used for event based input
   listeners: {}
 };
@@ -78,6 +84,7 @@ const api = Object.freeze({
 
     return false;
   },
+
   keyDown: function (key) {
     if (hasProperty(State.keys, key)) {
       return State.keys[key] === ActionStates.DOWN;
@@ -85,6 +92,7 @@ const api = Object.freeze({
 
     return false;
   },
+
   keyUp: function (key) {
     if (hasProperty(State.keys, key)) {
       return State.keys[key] === ActionStates.UP;
@@ -92,6 +100,7 @@ const api = Object.freeze({
 
     return false;
   },
+
   key: function (key) {
     if (hasProperty(State.keys, key)) {
       return State.keys[key] === ActionStates.DOWN || State.keys[key] === ActionStates.PRESSED;
@@ -99,6 +108,11 @@ const api = Object.freeze({
 
     return false;
   },
+
+  get isMouseInWindow() {
+    return State.mouseInWindow;
+  },
+
   registerEventListener: function (type, listener, scope) {
     if (!hasProperty(State.listeners, type)) {
       State.listeners[type] = [];
@@ -163,6 +177,7 @@ function createKeyEvent(key) {
 }
 
 function setup() {
+
   document.addEventListener('keydown', event => {
     //Update modifier state
     const modifier = findModifierForEvent(event);
@@ -175,6 +190,7 @@ function setup() {
       State.keys[key] = ActionStates.DOWN;
     }
   });
+
   document.addEventListener('keyup', event => {
     //Update modifier state
     const modifier = findModifierForEvent(event);
@@ -191,12 +207,27 @@ function setup() {
 
     dispatchEvent('key', createKeyEvent(key));
   });
+
+  document.addEventListener('mouseenter', event => {
+    State.mouseInWindow = true;
+  });
+
+  document.addEventListener('mouseleave', event => {
+    State.mouseInWindow = false;
+  });
+
+  document.addEventListener('mousemove', event => {
+
+  });
+
+  document.addEventListener('wheel', event => {
+
+  });
 }
 
 setup();
 
 export {
   ActionStates,
-  Modifiers,
   api as Input
 };
