@@ -15,24 +15,20 @@ export default class Controller extends Entity {
 
   onUpdate() {
 
-    if(Input.keyDown('F1')) {
-      console.log('Down F1');
+    if(Input.key('ArrowRight')) {
+      console.log('Arrow Right');
     }
 
     if(Input.key(' ')) {
       console.log('Space');
     }
 
-    if(Input.keyUp('F1')) {
-      console.log('Up F1');
-    }
-
     if(Input.key('Enter')) {
       console.log('Enter');
     }
 
-    if(Input.key('Shift')) {
-      console.log('Shift');
+    if(Input.key('Meta')) {
+      console.log('Meta');
     }
   }
 }
